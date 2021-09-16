@@ -54,7 +54,7 @@ public class AccountManagerApplicationTests {
 	}
 
 	@Test
-	void testTransfer() throws Exception {
+	void testTransferSuccess() throws Exception {
 
 		TransferRequest transferRequest = TransferRequest.builder().fromAccountId(12345678L).toAccountId(88888888L).amount(new BigDecimal(1)).build();
 
@@ -102,7 +102,7 @@ public class AccountManagerApplicationTests {
 				.andExpect(MockMvcResultMatchers.status().isNotFound())
 				.andExpect(MockMvcResultMatchers.content()
 						.contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-				.andExpect(MockMvcResultMatchers.jsonPath("$.message").value("from Account not found"))
+				.andExpect(MockMvcResultMatchers.jsonPath("$.message").value("Account "+1234568L+" not found"))
 				.andReturn();
 
 	}

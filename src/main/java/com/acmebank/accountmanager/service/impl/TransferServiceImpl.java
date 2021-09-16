@@ -45,9 +45,9 @@ public class TransferServiceImpl implements TransferService {
         Long toAccountId = transferEntity.getToAccountId();
 
         AccountEntity fromAccount = accountRepository.findById(fromAccountId)
-                .orElseThrow(() -> new NoSuchElementException("from Account not found"));
+                .orElseThrow(() -> new NoSuchElementException("Account "+fromAccountId+" not found"));
         AccountEntity toAccount = accountRepository.findById(toAccountId)
-                .orElseThrow(() -> new NoSuchElementException("to Account+ not found"));
+                .orElseThrow(() -> new NoSuchElementException("Account "+toAccountId+" not found"));
 
         BigDecimal transferAmount = transferEntity.getAmount();
         BigDecimal fromAccountBalance = fromAccount.getBalance().subtract(transferAmount);
@@ -79,6 +79,7 @@ public class TransferServiceImpl implements TransferService {
                 .build();
 
         transferEntity.setStatus(TransferStatus.TRANSFERRED);
+        transferEntity.setTransferTime(transferTime);
 
         accountRepository.save(fromAccount);
         accountRepository.save(toAccount);
